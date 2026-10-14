@@ -1,63 +1,48 @@
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(CircleOneApp());
-}
-
-class CircleOneApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
-      home: SplashScreen(),
-    );
-  }
-}
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeFeed()));
-    });
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 120, height: 120,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Color(0xFF3B82F6), Color(0xFFEC4899)]),
-                shape: BoxShape.circle
-              ),
-              child: Center(child: Text("1", style: TextStyle(fontSize: 70, color: Colors.white, fontWeight: FontWeight.bold))),
-            ),
-            SizedBox(height: 20),
-            Text("Circle One", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-            Text("Connect • Share • Discover", style: TextStyle(color: Colors.grey)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// باقی 5 screens کا کوڈ میں آپ کو اگلی بار پورا دے دوں گا باس
-class HomeFeed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Circle One Home Feed")), body: Center(child: Text("Home Feed - Stories + Posts")));
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CircleOne - Hub Final</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+.page{display:none;min-height:100vh}.page.active{display:block}
+.main-nav{position:fixed;bottom:0;width:100%;background:#111;display:flex;justify-content:space-around;padding:14px 0;z-index:50;border-top:1px solid #222}
+</style>
+</head>
+<body class="bg-black text-white">
+<div id="home" class="page active p-4 pb-24">
+<h1 class="text-3xl font-bold text-center text-purple-400 py-4">CircleOne</h1>
+<div class="bg-zinc-900 p-4 rounded-xl mb-3">Welcome - Home Feed</div>
+<div class="bg-zinc-900 p-4 rounded-xl">Trending Posts in Circle</div>
+</div>
+<div id="circle" class="page p-4 pb-24"><h2 class="text-2xl font-bold">Circle Reels</h2><div class="mt-6 h-[70vh] bg-gradient-to-br from-purple-900 to-black rounded-2xl flex items-center justify-center">Reel 1 - Swipe Up</div></div>
+<div id="shop" class="page p-4 pb-24"><h2 class="text-2xl font-bold">Circle Shop</h2><div class="grid grid-cols-2 gap-3 mt-4"><div class="bg-zinc-900 p-3 rounded-xl"><p>Product 1</p><button class="bg-purple-600 w-full mt-2 py-2 rounded-lg">Buy</button></div><div class="bg-zinc-900 p-3 rounded-xl"><p>Product 2</p><button class="bg-purple-600 w-full mt-2 py-2 rounded-lg">Buy</button></div></div></div>
+<div id="chat" class="page p-4 pb-24"><h2 class="text-2xl font-bold">Messages</h2></div>
+<div id="profile" class="page p-4 pb-24"><h2 class="text-2xl font-bold text-center">Profile</h2><div class="w-24 h-24 bg-purple-600 rounded-full mx-auto mt-8"></div><p class="text-center mt-3">circleone2026</p></div>
+<div id="terms" class="page p-6 pb-24">
+<h2 class="text-xl font-bold mb-4">Terms & Conditions</h2>
+<p class="text-sm text-zinc-400 mb-6">By using CircleOne you agree to community guidelines.</p>
+<label class="flex gap-3 bg-zinc-900 p-4 rounded-xl"><input type="checkbox" id="termsCheck" class="w-5 h-5"><span class="text-sm">I agree to Terms & Privacy</span></label>
+<button id="acceptBtn" disabled class="w-full mt-6 py-3 rounded-xl bg-zinc-700 text-zinc-400 font-bold">Accept & Continue</button>
+</div>
+<nav class="main-nav">
+<button onclick="showPage('home')"><i class="fa-solid fa-house text-xl"></i></button>
+<button onclick="showPage('circle')"><i class="fa-solid fa-clapperboard text-xl"></i></button>
+<button onclick="showPage('shop')"><i class="fa-solid fa-bag-shopping text-xl"></i></button>
+<button onclick="showPage('chat')"><i class="fa-solid fa-message text-xl"></i></button>
+<button onclick="showPage('profile')"><i class="fa-solid fa-user text-xl"></i></button>
+<button onclick="showPage('terms')"><i class="fa-solid fa-file-lines text-xl"></i></button>
+</nav>
+<script>
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+const chk=document.getElementById('termsCheck');const btn=document.getElementById('acceptBtn');
+chk.addEventListener('change',()=>{
+if(chk.checked){btn.disabled=false;btn.className='w-full mt-6 py-3 rounded-xl bg-purple-600 text-white font-bold';btn.innerText='Accepted - Go Home';}
+else{btn.disabled=true;btn.className='w-full mt-6 py-3 rounded-xl bg-zinc-700 text-zinc-400 font-bold';btn.innerText='Accept & Continue';}
+});
+btn.addEventListener('click',()=>{if(!btn.disabled) showPage('home');});
+</script>
+</body>
+</html>
